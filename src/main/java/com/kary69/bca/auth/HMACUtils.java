@@ -29,7 +29,6 @@ public class HMACUtils {
     }
 
     public static String calculateSignature(String apiSecret, String stringToSign) {
-//        return HMAC_SHA256(apiSecret, stringToSign);
         try {
             return HMAC2(apiSecret, stringToSign);
         } catch (Exception e) {
@@ -50,21 +49,6 @@ public class HMACUtils {
         }
         return stringToSign;
     }
-
-//    public static String HMAC_SHA256(String secret, String message)
-//    {
-//        String hash="";
-//        try {
-//            Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-//            SecretKeySpec secret_key = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
-//            sha256_HMAC.init(secret_key);
-//
-//            hash = Base64.encode(sha256_HMAC.doFinal(message.getBytes()));
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return hash.trim();
-//    }
 
     public static String HMAC2(String key, String message) throws Exception {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");

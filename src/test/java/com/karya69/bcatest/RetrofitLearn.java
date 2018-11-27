@@ -12,15 +12,13 @@ import java.sql.Time;
 public class RetrofitLearn {
     private String clientId = "1e004364-3f91-4cf0-9041-67e58dc490b3";
     private String clientSecret = "416e71fb-3c50-4727-bd1f-4bffa9f1e669";
-    private String apiKey = "5d61db73-9284-4ec7-b914-6bcfd30059c9";
-    private String apiSecret = "040f68bf-14d8-46b6-a9dc-24e25b163d2e";
-    private String authToken = "lurt0wtYiZ9wMELNEwOJZdtV6uitpuuY3hRtxKaJaYilW1CeFfcSzN";
+    private String authToken = "yyX7TUvdLSq5MlQ2BeoQkayJYTiXmZhAxO1C53Vk9srSsy9qUz6nDy";
 
     @Test
     public void should_access_token() throws IOException {
         LoginService loginService =
                 ServiceGenerator.createService(LoginService.class, clientId, clientSecret);
-        Call<AccessToken> call = loginService.getAccessToken(apiKey, "client_credentials");
+        Call<AccessToken> call = loginService.getAccessToken("client_credentials");
         Response<AccessToken> response = call.execute();
         AccessToken accessToken = response.body();
 
@@ -49,10 +47,10 @@ public class RetrofitLearn {
     public void should_access_balance_information() throws IOException {
         BusinessBankingService service =
                 ServiceGenerator.createRequestService(BusinessBankingService.class, authToken);
-        Call<String> call = service.getBalanceInformation("BCAAPI2016");
-        Response<String> response = call.execute();
+        Call<Object> call = service.getBalanceInformation("BCAAPI2016");
+        Response<Object> response = call.execute();
 
-        System.out.println(response.errorBody().string());
+//        System.out.println(response.errorBody().string());
         System.out.println(response.body());
     }
 }

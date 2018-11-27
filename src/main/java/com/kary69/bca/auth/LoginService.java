@@ -9,6 +9,5 @@ public interface LoginService {
     @FormUrlEncoded
     @POST("api/oauth/token")
     Call<AccessToken> getAccessToken(
-            @Field("code") String code,
             @Field("grant_type") String grantType);
 }

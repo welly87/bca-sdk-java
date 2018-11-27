@@ -29,7 +29,9 @@ public class TimestampUtils {
      * @return String with format "yyyy-MM-dd'T'HH:mm:ss'Z'"
      */
     private static String getISO8601StringForDate(Date date) {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'T'ZD");
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+7"));
         return dateFormat.format(date);
     }
