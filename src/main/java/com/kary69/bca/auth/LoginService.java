@@ -7,7 +7,7 @@ import retrofit2.http.POST;
 
 public interface LoginService {
     @FormUrlEncoded
-    @POST("oauth/token")
+    @POST("api/oauth/token")
     Call<AccessToken> getAccessToken(
             @Field("code") String code,
             @Field("grant_type") String grantType);

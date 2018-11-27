@@ -7,8 +7,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = "https://sandbox.bca.co.id/api/";
-
+    private static final String API_BASE_URL = "https://sandbox.bca.co.id/";
+    private static final String apiKey = "5d61db73-9284-4ec7-b914-6bcfd30059c9";
+    private static final String apiSecret = "040f68bf-14d8-46b6-a9dc-24e25b163d2e";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     private static Retrofit.Builder builder =
@@ -22,35 +23,35 @@ public class ServiceGenerator {
 
     public static <S> S createService(
             Class<S> serviceClass, String clientId, String clientSecret) {
-        // TODO need to activate this one
-//        if (!TextUtils.isEmpty(clientId)
-//                && !TextUtils.isEmpty(clientSecret)) {
-//            String authToken = Credentials.basic(clientId, clientSecret);
-//            return createService(serviceClass, authToken);
-//        }
-//        return createService(serviceClass, null, null);
         String authToken = Credentials.basic(clientId, clientSecret);
         return createService(serviceClass, authToken);
-
     }
+
+
 
     public static <S> S createService(
             Class<S> serviceClass, final String authToken) {
-//        if (!TextUtils.isEmpty(authToken)) {
-//            AuthenticationInterceptor interceptor =
-//                    new AuthenticationInterceptor(authToken);
-//
-//            if (!httpClient.interceptors().contains(interceptor)) {
-//                httpClient.addInterceptor(interceptor);
-//
-//                builder.client(httpClient.build());
-//                retrofit = builder.build();
-//            }
-//        }
         Retrofit retrofit = null;
 
         AuthenticationInterceptor interceptor =
                 new AuthenticationInterceptor(authToken);
+
+        if (!httpClient.interceptors().contains(interceptor)) {
+            httpClient.addInterceptor(interceptor);
+
+            builder.client(httpClient.build());
+            retrofit = builder.build();
+        }
+
+        return retrofit.create(serviceClass);
+    }
+
+    public static <S> S createRequestService(
+            Class<S> serviceClass, final String authToken) {
+        Retrofit retrofit = null;
+
+        OauthRequestInterceptor interceptor =
+                new OauthRequestInterceptor(authToken, apiKey, apiSecret);
 
         if (!httpClient.interceptors().contains(interceptor)) {
             httpClient.addInterceptor(interceptor);
